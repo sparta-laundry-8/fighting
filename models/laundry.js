@@ -14,9 +14,13 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Laundry.init({
-    email: DataTypes.STRING,
-    nickname: DataTypes.STRING,
-    password: DataTypes.STRING
+    customerId: DataTypes.BIGINT,
+    spplierId: DataTypes.BIGINT,
+    status: DataTypes.TEXT,
+    photoURL: DataTypes.BLOB,
+    request: DataTypes.STRING,
+    cellphone: DataTypes.STRING,
+    address: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Laundry',
