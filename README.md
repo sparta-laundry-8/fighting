@@ -1,3 +1,5 @@
+##seeders 파일은 안올라가네요 필요하면 직접 생성해서 써도 될 듯?
+
 ## npm 모듈 설치 항목
 express jsonwebtoken mysql2 sequelize sequelize-cli
 
