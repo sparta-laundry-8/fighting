@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Laundry.init({
+    laundryId: {
+      primaryKey: true,
+      type: DataTypes.BIGINT,
+    },
     customerId: DataTypes.BIGINT,
     spplierId: DataTypes.BIGINT,
     status: DataTypes.TEXT,

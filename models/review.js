@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Review.init({
+    reviewId: {
+      primaryKey: true,
+      type: DataTypes.BIGINT,
+    },
     customerId: DataTypes.BIGINT,
     supplierId: DataTypes.BIGINT,
     content: DataTypes.STRING,
