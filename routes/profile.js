@@ -14,18 +14,18 @@ router.get("/profile", (req, res) => {
 router.patch("/profile/:customerId", async (req, res) =>{
     try{
         const {customerId} = req.params;
-        const {email, nickname, password, confirmPassword, address, cellphone} = req.body;
+        const {email, nickname, password, address, cellphone} = req.body;
 
         const existCustomer = await Customer.findOne({
         where: {customerId}
     });
     if (existCustomer) {
-        return await Customer.update({email, nickname, password, confirmPassword, address, cellphone}, {where: {customerId}}),
+        return await Customer.update({email, nickname, password, address, cellphone}, {where: {customerId}}),
         res.status(200).json({message: "수정 완료"});
     } else {
         return res.send("존재하지 않는 아이디입니다.")
     }
-    }catch {
+    }catch(error) {
         console.error(error);
         res.status(500).json({errorMessage: error.Message});
     }
@@ -34,18 +34,18 @@ router.patch("/profile/:customerId", async (req, res) =>{
 router.patch("/profile/:supplierId", async (req, res) => {
     try{
         const {supplierId} = req.params;
-        const {email, nickname, password, confirmPassword, address, cellphone} = req.body;
+        const {email, nickname, password, address, cellphone} = req.body;
 
         const existSupplier = await Supplier.findOne({
         where: {supplierId}
     });
     if (existSupplier) {
-        return await Supplier.update({email, nickname, password, confirmPassword, address, cellphone}, {where: {supplierId}}),
+        return await Supplier.update({email, nickname, password, address, cellphone}, {where: {supplierId}}),
         res.status(200).json({message: "수정 완료"});
     } else {
         return res.send("존재하지 않는 아이디입니다.")
     }
-    }catch {
+    }catch(error) {
         console.error(error);
         res.status(500).json({errorMessage: error.Message});
     }
