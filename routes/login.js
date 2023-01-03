@@ -1,7 +1,6 @@
 const { application } = require("express");
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const cookieParser = require("cookie-parser");
 const { Op } = require("sequelize");
 const {Customer, Supplier} = require("../models")
 // const jwtMiddleware = require("../middlewares/jwt-middleware.js");
@@ -51,7 +50,7 @@ router.post("/login/supplier", async (req, res) => {
       });
     }
     const token = jwt.sign({ supplierId: Supplier.supplierId }, "laundry-supplier", {expiresIn: "30m"});
-    res.cookie("suplierId", token)
+    res.cookie("supplierId", token)
     res.json({
       token,
     });
@@ -77,7 +76,7 @@ router.get("/customer", async (req, res) => {
 
 router.get("/supplier", async (req, res) => {
   try{
-    const {supplierId} = req.cookies
+    const supplierId = req.cookies.supplierId
     const token = jwt.verify(supplierId, "laundry-supplier");
     if (token) {
       return res.send({supplierId});

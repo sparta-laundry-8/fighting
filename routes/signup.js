@@ -1,6 +1,5 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const cookieParser = require("cookie-parser");
 const { Op } = require("sequelize");
 const {Customer, Supplier} = require("../models")
 // const jwtMiddleware = require("../middlewares/jwt-middleware.js");
