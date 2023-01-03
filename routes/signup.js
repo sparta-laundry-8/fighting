@@ -1,10 +1,16 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 const { Op } = require("sequelize");
 const {Customer, Supplier} = require("../models")
-const jwtMiddleware = require("../middlewares/jwt-middleware.js");
+// const jwtMiddleware = require("../middlewares/jwt-middleware.js");
 
 const router = express.Router();
+
+// 회원가입 페이지
+router.get("/signup", (req, res) =>{
+  res.json({Message : "회원가입 페이지 입니다. 고객 및 기업으로 회원가입 가능합니다."});
+});
 
 // Customer 회원가입
 router.post("/signup/customer", async (req, res) => {
