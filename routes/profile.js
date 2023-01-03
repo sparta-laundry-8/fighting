@@ -3,7 +3,10 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const { Op } = require("sequelize");
 const {Customer, Supplier} = require("../models")
-// const jwtMiddleware = require("../middlewares/jwt-middleware.js");
+// customer 인증 미들웨어
+const jwtCustomer = require("../middlewares/jwt-customer.js");
+// supplier 인증 미들웨어
+const jwtSupplier = require("../middlewares/jwt-supplier.js");
 
 const router = express.Router();
 
@@ -11,7 +14,7 @@ router.get("/profile", (req, res) => {
     res.send("마이페이지 입니다. 개인정보 수정이 가능합니다.");
 });
 
-router.patch("/profile/:customerId", async (req, res) =>{
+router.patch("/profile/:customerId", jwtCustomer, async (req, res) =>{
     try{
         const {customerId} = req.params;
         const {email, nickname, password, address, cellphone} = req.body;
@@ -31,7 +34,7 @@ router.patch("/profile/:customerId", async (req, res) =>{
     }
 });
 
-router.patch("/profile/:supplierId", async (req, res) => {
+router.patch("/profile/:supplierId", jwtSupplier, async (req, res) => {
     try{
         const {supplierId} = req.params;
         const {email, nickname, password, address, cellphone} = req.body;
