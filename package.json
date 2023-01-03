@@ -1,7 +1,7 @@
 {
   "name": "handsome_laundry",
   "version": "1.0.0",
-  "description": "",
+  "description": "express jsonwebtoken mysql2 sequelize sequelize-cli",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,6 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/sparta-laundry-8/handsome_laundry.git"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -17,8 +18,8 @@
   },
   "homepage": "https://github.com/sparta-laundry-8/handsome_laundry#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.6",
     "express": "^4.18.2",
-    "global": "^4.4.0",
     "jsonwebtoken": "^9.0.0",
     "mysql2": "^2.3.3",
     "sequelize": "^6.28.0",

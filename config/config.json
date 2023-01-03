@@ -1,9 +1,9 @@
 {
   "development": {
     "username": "root",
-    "password": null,
-    "database": "database_development",
-    "host": "127.0.0.1",
+    "password": "gksehdwn123",
+    "database": "laundry",
+    "host": "express-database.cdgjc8uvtwp0.ap-northeast-2.rds.amazonaws.com",
     "dialect": "mysql"
   },
   "test": {
