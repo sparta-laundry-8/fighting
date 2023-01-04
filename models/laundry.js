@@ -27,8 +27,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     customerId: DataTypes.BIGINT,
     supplierId: DataTypes.BIGINT,
-    status: DataTypes.TEXT,
-    photoURL: DataTypes.BLOB,
+    status: {
+      type: DataTypes.STRING,
+      defaultValue: 0
+    },
+    photoURL: DataTypes.STRING,
     request: DataTypes.STRING,
     cellPhone: DataTypes.STRING,
     address: DataTypes.STRING

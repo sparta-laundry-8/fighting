@@ -16,10 +16,11 @@ module.exports = {
         type: Sequelize.BIGINT.UNSIGNED
       },
       status: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING,
+        defaultValue: 0
       },
       photoURL: {
-        type: Sequelize.BLOB
+        type: Sequelize.STRING
       },
       request: {
         type: Sequelize.STRING

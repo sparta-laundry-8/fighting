@@ -26,15 +26,13 @@ router.patch("/profile/:customerId", jwtCustomer, async (req, res) =>{
     try{
         const customer = res.locals.customer
         const customerId = customer.customerId
-        // const {customerId} = req.params;
+
         const {email, nickname, password, address, cellphone} = req.body;
 
-        // const existCustomer = await Customer.findOne({
-        // where: {customerId}
-        // });
+
     if (customer) {
         return await Customer.update({email, nickname, password, address, cellphone}, {where: {customerId}}),
-        res.status(200).json({message: "수정 완료"});
+        res.status(201).json({message: "수정 완료"});
     } else {
         return res.send("존재하지 않는 아이디입니다.")
     }
@@ -52,12 +50,9 @@ router.patch("/profile/:supplierId", jwtSupplier, async (req, res) => {
 
         const {email, nickname, password, address, cellphone} = req.body;
 
-    //     const existSupplier = await Supplier.findOne({
-    //     where: {supplierId}
-    //     });
     if (supplier) {
         return await Supplier.update({email, nickname, password, address, cellphone}, {where: {supplierId}}),
-        res.status(200).json({message: "수정 완료"});
+        res.status(201).json({message: "수정 완료"});
     } else {
         return res.send("존재하지 않는 아이디입니다.")
     }

@@ -30,6 +30,6 @@ module.exports = async (req, res, next) => {
     }
     catch (error) {
     console.error(error);
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: "로그인 후 사용 가능합니다." });
     }
 };

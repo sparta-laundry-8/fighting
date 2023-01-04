@@ -14,26 +14,40 @@ const router = express.Router();
 router.post('/laundry/apply', jwtCustomer, async(req, res) => {
     try{
         const customer = res.locals.customer;
-        // const customerId = customer.customerId;
+        const customerId = customer.customerId;
 
-        const {photoURL, request, cellphone, address} = req.body;
-            
-        const confirmForm = await Laundry.findOne({ where: { photoURL, request, cellphone, address } }); 
+        const {photoURL, request, cellPhone, address} = req.body;
+
+        const confirmForm = await Laundry.findAll({
+            where: {
+              [Op.or]: [{ photoURL }, { request }, {cellPhone}, {address}],
+            },
+          }); 
         if (!confirmForm) {
             return res.status(400).json({Message : "모든 항목을 작성해 주세요."})
         }
-        return await Laundry.create({photoURL, request, cellphone, address}),
-        res.status(200).json({Message : "세탁물 신청이 접수되었습니다."})
+        return await Laundry.create({customerId, photoURL, request, cellPhone, address}),
+        res.status(200).json({Message : "세탁물 신청이 접수되었습니다."});
 
     } catch(error) {
         console.error(error),
-        res.status(500).json({errorMessage: error.Message})
-      }
+        res.status(500).json({errorMessage: error.Message});
+      };
 });
 
 // customer : 신청한 세탁 서비스 상태 파악 페이지
 router.get('/laundry/apply/:customerId', jwtCustomer, async (req, res) => {
+    try{
+        const customer = res.locals.customer;
+        const customerId = customer.customerId;
 
+        const currentLaundry = await Laundry.findAll({customerId});
+        res.status(200).json({currentLaundry});
+
+    } catch(error) {
+        console.error(error),
+        res.status(500).json({errorMessage: error.Message});
+      };
 });
 
 // supplier : 고객이 신청한 세탁물 서비스 목록 (기업만 볼 수 있음)
@@ -52,6 +66,38 @@ router.get('/laundry/list', jwtSupplier,  async(req, res) => {
 });
 // supplier : 고객이 신청한 세탁물 서비스 상세 조회
 router.get('/laundry/list/:laundryId', jwtSupplier, async (req, res) => {
+    try{
+        const {laundryId} = req.params;
 
+        const laundryDetail = await Laundry.findOne({
+            where: {laundryId}
+        })
+        if (!laundryDetail) {
+            return res.status(400).json({Message: "존재하지 않는 세탁물 입니다."});
+        };
+        return res.status(200).json({laundryDetail});
+
+    } catch(error) {
+        console.error(error),
+        res.status(500).json({errorMessage: error.Message});
+      };
 });
+
+// supplier : 세탁물 수거하기
+router.patch('/laundry/list/:laundryId', jwtSupplier, async (req, res) =>{
+    try{
+        const supplier = res.locals.supplier;
+        const supplierId = supplier.supplierId;
+
+        const {laundryId} = req.params;
+        const laundryState = await Laundry.findOne({where : {laundryId}});
+        if (laundryState) {
+            return await Laundry.updateOne({laundryId}, {$set: {supplierId, status : 1}})
+        }
+
+    } catch(error) {
+        console.error(error),
+        res.status(500).json({errorMessage: error.Message});
+      };
+})
 module.exports = router;

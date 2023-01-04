@@ -11,7 +11,9 @@ const jwtSupplier = require("../middlewares/jwt-supplier.js");
 const router = express.Router();
 
 // 리뷰 작성 페이지
-router.post('/review/:laundryId')
+router.post('/review/:supplierId/:laundryId', jwtCustomer, async (req, res) => {
+
+})
 // 리뷰 관리 페이지
 
 module.exports = router;
