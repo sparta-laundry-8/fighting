@@ -13,7 +13,7 @@ const router = express.Router();
 // 고객용 세탁 서비스 신청 페이지
 router.post('/laundry/apply', jwtCustomer, async(req, res) => {
     try{
-        const {customerId} = res
+        // const customer = 
         // const {}
     } catch(error) {
         console.error(error),
@@ -25,7 +25,7 @@ router.post('/laundry/apply', jwtCustomer, async(req, res) => {
 router.get('/laundry/apply/:customerId', jwtCustomer, async (req, res) => {
 
 });
-// 기업용 고객이 신청한 세탁물 서비스 목록
+// 고객이 신청한 세탁물 서비스 목록 (만)
 router.get('/laundry/list', jwtSupplier,  async(req, res) => {
     try{
         const laundrys = await Laundry.findAll({

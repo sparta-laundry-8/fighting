@@ -30,7 +30,7 @@ router.post("/login/customer", async (req, res) => {
     const token = jwt.sign({ customerId: Customer.customerId }, "laundry-customer", {expiresIn: "30m"});
     if (token) {
       return res.status(200).json({
-        Message: "로그인 완료"
+        token
       });
     }
   }

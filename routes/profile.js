@@ -24,13 +24,15 @@ router.get("/profile/supplier", (req, res) => {
 // Customer 프로필 수정
 router.patch("/profile/:customerId", jwtCustomer, async (req, res) =>{
     try{
-        const {customerId} = req.params;
+        const customer = res.locals.customer
+        const customerId = customer.customerId
+        // const {customerId} = req.params;
         const {email, nickname, password, address, cellphone} = req.body;
 
-        const existCustomer = await Customer.findOne({
-        where: {customerId}
-    });
-    if (existCustomer) {
+        // const existCustomer = await Customer.findOne({
+        // where: {customerId}
+        // });
+    if (customer) {
         return await Customer.update({email, nickname, password, address, cellphone}, {where: {customerId}}),
         res.status(200).json({message: "수정 완료"});
     } else {
