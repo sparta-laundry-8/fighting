@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BIGINT,
     },
     customerId: DataTypes.BIGINT,
-    spplierId: DataTypes.BIGINT,
+    supplierId: DataTypes.BIGINT,
     status: DataTypes.TEXT,
     photoURL: DataTypes.BLOB,
     request: DataTypes.STRING,
