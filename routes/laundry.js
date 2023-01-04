@@ -25,7 +25,7 @@ router.post('/laundry/apply', jwtCustomer, async(req, res) => {
 router.get('/laundry/apply/:customerId', jwtCustomer, async (req, res) => {
 
 });
-// 고객이 신청한 세탁물 서비스 목록 (만)
+// 고객이 신청한 세탁물 서비스 목록 (기업만 볼 수 있음)
 router.get('/laundry/list', jwtSupplier,  async(req, res) => {
     try{
         const laundrys = await Laundry.findAll({
