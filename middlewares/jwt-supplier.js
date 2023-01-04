@@ -2,7 +2,7 @@
 // 1. jwt
 // 2. 모델
 const jwt = require("jsonwebtoken");
-const { Supplier } = require("../models/supplier.js");
+const { Supplier } = require("../models");
 
 module.exports = async (req, res, next) => {
     // jwt 가져오기

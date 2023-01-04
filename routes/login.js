@@ -54,13 +54,9 @@ router.post("/login/supplier", async (req, res) => {
     }
     const token = jwt.sign({ supplierId: supplier.supplierId }, "laundry-supplier", {expiresIn: "30m"});
 
-    // 헤더에 쿠키를 넣는 방식(안씀)
-    // res.cookie("customer", token)
-    // res.send(token)
-
     if (token) {
       return res.status(200).json({
-        Message: "로그인 완료"
+        token
       });
     }
   }
@@ -69,6 +65,9 @@ router.post("/login/supplier", async (req, res) => {
     res.status(500).json({errorMessage: error.Message})
   }
 });
+
+// ------------------------------------------------------------------------------------------------------//
+
 
 // customer 정보 확인
 router.get("/customer", jwtCustomer, async (req, res) => {
