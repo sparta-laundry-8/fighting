@@ -1,6 +1,7 @@
 const express = require("express");
 const { Op } = require("sequelize");
 const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 const loginRouter = require("./routes/login.js")
@@ -8,6 +9,7 @@ const signupRouter = require("./routes/signup.js")
 const profileRouter = require("./routes/profile.js")
 
 app.use(express.json());
+app.use(cookieParser());
 app.use('/api',[loginRouter, signupRouter, profileRouter])
 
 app.listen(3000, () => {

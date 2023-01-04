@@ -1,12 +1,12 @@
 const { application } = require("express");
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const cookieParser = require("cookie-parser");
 const { Op } = require("sequelize");
 const {Customer, Supplier} = require("../models")
-// const jwtMiddleware = require("../middlewares/jwt-middleware.js");
-
-
+// customer 인증 미들웨어
+const jwtCustomer = require("../middlewares/jwt-customer.js");
+// supplier 인증 미들웨어
+const jwtSupplier = require("../middlewares/jwt-supplier.js");
 
 const router = express.Router();
 
@@ -28,11 +28,13 @@ router.post("/login/customer", async (req, res) => {
       });
     }
     const token = jwt.sign({ customerId: Customer.customerId }, "laundry-customer", {expiresIn: "30m"});
-    res.cookie("customerId", token)
-    res.json({
-      token,
-    });
-  } catch(error) {
+    if (token) {
+      return res.status(200).json({
+        Message: "로그인 완료"
+      });
+    }
+  }
+  catch(error) {
     console.error(error),
     res.status(500).json({errorMessage: error.Message})
   }
@@ -51,41 +53,39 @@ router.post("/login/supplier", async (req, res) => {
       });
     }
     const token = jwt.sign({ supplierId: Supplier.supplierId }, "laundry-supplier", {expiresIn: "30m"});
-    res.cookie("suplierId", token)
-    res.json({
-      token,
-    });
-  } catch(error) {
+
+    // 헤더에 쿠키를 넣는 방식(안씀)
+    // res.cookie("customer", token)
+    // res.send(token)
+
+    if (token) {
+      return res.status(200).json({
+        Message: "로그인 완료"
+      });
+    }
+  }
+    catch(error) {
     console.error(error),
     res.status(500).json({errorMessage: error.Message})
   }
 });
 
 // customer 정보 확인
-router.get("/customer", async (req, res) => {
-  try{
-    const { customerId } = req.cookies;
-    const token = jwt.verify(customerId, "laundry-customer");
-    if (token) {
-      return res.send({customerId});
-    }
-  } catch(error) {
-    console.error(error),
-    res.status(500).json({errorMessage: error.Message})
-  }
+router.get("/customer", jwtCustomer, async (req, res) => {
+  const { customer } = res.locals;
+  console.log(customer);
+  res.send({
+    customer,
+  });
 });
 
-router.get("/supplier", async (req, res) => {
-  try{
-    const {supplierId} = req.cookies
-    const token = jwt.verify(supplierId, "laundry-supplier");
-    if (token) {
-      return res.send({supplierId});
-    }
-  } catch(error) {
-    console.error(error),
-    res.status(500).json({errorMessage: error.Message})
-  }
+// supplier 정보 확인
+router.get("/supplier", jwtSupplier, async (req, res) => {
+  const { supplier } = res.locals;
+  console.log(supplier);
+  res.send({
+    supplier,
+  });
 });
   
 

@@ -1,6 +1,5 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const cookieParser = require("cookie-parser");
 const { Op } = require("sequelize");
 const {Customer, Supplier} = require("../models")
 // const jwtMiddleware = require("../middlewares/jwt-middleware.js");
@@ -15,7 +14,7 @@ router.get("/signup", (req, res) =>{
 // Customer 회원가입
 router.post("/signup/customer", async (req, res) => {
     try{
-        const { nickname, email, password, confirmPassword, cellphone, address, point } = req.body;
+        const { nickname, email, password, confirmPassword, cellphone, address } = req.body;
   
     if (password !== confirmPassword) {
       res.status(400).send({
@@ -36,7 +35,7 @@ router.post("/signup/customer", async (req, res) => {
       return;
     }
   
-    await Customer.create({ email, nickname, password, cellphone, address, point});
+    await Customer.create({ email, nickname, password, cellphone, address});
   
     res.status(201).send({ message: "회원 가입에 성공하였습니다." });
     } catch(error) {
@@ -48,7 +47,7 @@ router.post("/signup/customer", async (req, res) => {
 // Supplier 회원가입
 router.post("/signup/supplier", async (req, res) => {
     try{
-        const { nickname, email, password, confirmPassword, cellphone, address, point } = req.body;
+        const { nickname, email, password, confirmPassword, cellphone, address } = req.body;
   
     if (password !== confirmPassword) {
       res.status(400).send({
@@ -69,7 +68,7 @@ router.post("/signup/supplier", async (req, res) => {
       return;
     }
   
-    await Supplier.create({ email, nickname, password, cellphone, address, point});
+    await Supplier.create({ email, nickname, password, cellphone, address });
   
     res.status(201).send({ message: "회원 가입에 성공하였습니다." });
     } catch(error) {
