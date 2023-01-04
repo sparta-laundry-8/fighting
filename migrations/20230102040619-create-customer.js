@@ -20,9 +20,6 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
-      address: {
-        type: Sequelize.STRING
-      },
       cellphone: {
         type: Sequelize.STRING,
         Unique: true
@@ -31,7 +28,8 @@ module.exports = {
         type: Sequelize.BIGINT.UNSIGNED
       },
       point: {
-        type: Sequelize.BIGINT.UNSIGNED
+        type: Sequelize.BIGINT.UNSIGNED,
+        defaultValue: 1000000
       },
       createdAt: {
         allowNull: false,

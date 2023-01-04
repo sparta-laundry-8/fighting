@@ -4,13 +4,16 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 
 const app = express();
-const loginRouter = require("./routes/login.js")
-const signupRouter = require("./routes/signup.js")
-const profileRouter = require("./routes/profile.js")
+const loginRouter = require("./routes/login")
+const signupRouter = require("./routes/signup")
+const profileRouter = require("./routes/profile")
+const laundryRouter = require("./routes/laundry")
+const mainRouter = require("./routes/main")
+const reviewRouter = require("./routes/review")
 
 app.use(express.json());
 app.use(cookieParser());
-app.use('/api',[loginRouter, signupRouter, profileRouter])
+app.use('/api',[loginRouter, signupRouter, profileRouter, laundryRouter, mainRouter, reviewRouter])
 
 app.listen(3000, () => {
     console.log("서버가 요청을 받을 준비가 됐어요");

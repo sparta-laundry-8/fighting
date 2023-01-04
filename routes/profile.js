@@ -10,19 +10,29 @@ const jwtSupplier = require("../middlewares/jwt-supplier.js");
 
 const router = express.Router();
 
-router.get("/profile", (req, res) => {
-    res.send("마이페이지 입니다. 개인정보 수정이 가능합니다.");
+// Customer 프로필 페이지
+router.get("/profile/customer", jwtCustomer, async (req, res) => {
+    res.send("고객용 마이페이지 입니다. 개인정보 수정이 가능합니다.");
 });
 
+// Supplier 프로필 페이지
+router.get("/profile/supplier", jwtSupplier, async (req, res) => {
+    res.send("기업용 마이페이지 입니다. 개인정보 수정이 가능합니다.");
+});
+
+
+// Customer 프로필 수정
 router.patch("/profile/:customerId", jwtCustomer, async (req, res) =>{
     try{
-        const {customerId} = req.params;
+        const customer = res.locals.customer
+        const customerId = customer.customerId
+        // const {customerId} = req.params;
         const {email, nickname, password, address, cellphone} = req.body;
 
-        const existCustomer = await Customer.findOne({
-        where: {customerId}
-    });
-    if (existCustomer) {
+        // const existCustomer = await Customer.findOne({
+        // where: {customerId}
+        // });
+    if (customer) {
         return await Customer.update({email, nickname, password, address, cellphone}, {where: {customerId}}),
         res.status(200).json({message: "수정 완료"});
     } else {
@@ -34,15 +44,18 @@ router.patch("/profile/:customerId", jwtCustomer, async (req, res) =>{
     }
 });
 
+// Supplier 프로필 수정
 router.patch("/profile/:supplierId", jwtSupplier, async (req, res) => {
     try{
-        const {supplierId} = req.params;
+        const supplier = res.locals.supplier
+        const supplierId = supplier.supplierId
+
         const {email, nickname, password, address, cellphone} = req.body;
 
-        const existSupplier = await Supplier.findOne({
-        where: {supplierId}
-    });
-    if (existSupplier) {
+    //     const existSupplier = await Supplier.findOne({
+    //     where: {supplierId}
+    //     });
+    if (supplier) {
         return await Supplier.update({email, nickname, password, address, cellphone}, {where: {supplierId}}),
         res.status(200).json({message: "수정 완료"});
     } else {
