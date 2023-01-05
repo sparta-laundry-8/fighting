@@ -19,6 +19,7 @@ module.exports = {
         type: Sequelize.BIGINT.UNSIGNED
       },
       content: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       createdAt: {

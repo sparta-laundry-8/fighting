@@ -64,6 +64,7 @@ router.get('/laundry/list', jwtSupplier,  async(req, res) => {
         res.status(500).json({errorMessage: error.Message})
       }
 });
+
 // supplier : 고객이 신청한 세탁물 서비스 상세 조회
 router.get('/laundry/list/:laundryId', jwtSupplier, async (req, res) => {
     try{

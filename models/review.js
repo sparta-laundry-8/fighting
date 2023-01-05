@@ -32,7 +32,10 @@ module.exports = (sequelize, DataTypes) => {
     customerId: DataTypes.BIGINT,
     supplierId: DataTypes.BIGINT,
     laundryId: DataTypes.BIGINT,
-    content: DataTypes.STRING
+    content: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'Review',
