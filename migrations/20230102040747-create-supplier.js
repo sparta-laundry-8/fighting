@@ -7,44 +7,44 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.BIGINT.UNSIGNED
+        type: Sequelize.BIGINT.UNSIGNED,
       },
       email: {
         type: Sequelize.STRING,
-        Unique: true
+        Unique: true,
       },
       nickname: {
         type: Sequelize.STRING,
-        Unique: true
+        Unique: true,
       },
       password: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       address: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       cellphone: {
         type: Sequelize.STRING,
-        Unique: true
+        Unique: true,
       },
       laundryid: {
-        type: Sequelize.BIGINT.UNSIGNED
+        type: Sequelize.BIGINT.UNSIGNED,
       },
       point: {
         type: Sequelize.BIGINT.UNSIGNED,
-        defaultValue: 0
+        defaultValue: 0,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Suppliers');
-  }
+  },
 };

@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Review extends Model {
     /**
@@ -12,33 +10,36 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       models.Review.belongsTo(models.Supplier, {
         foreignKey: 'managerId',
-        onDelete: 'NO ACTION'
+        onDelete: 'NO ACTION',
       });
       models.Review.belongsTo(models.Customer, {
         foreignKey: 'customerId',
-        onDelete: 'NO ACTION'
+        onDelete: 'NO ACTION',
       });
       models.Review.belongsTo(models.Laundry, {
         foreignKey: 'laundryId',
-        onDelete: 'NO ACTION'
+        onDelete: 'NO ACTION',
       });
     }
   }
-  Review.init({
-    reviewId: {
-      primaryKey: true,
-      type: DataTypes.BIGINT,
+  Review.init(
+    {
+      reviewId: {
+        primaryKey: true,
+        type: DataTypes.BIGINT,
+      },
+      customerId: DataTypes.BIGINT,
+      supplierId: DataTypes.BIGINT,
+      laundryId: DataTypes.BIGINT,
+      content: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
-    customerId: DataTypes.BIGINT,
-    supplierId: DataTypes.BIGINT,
-    laundryId: DataTypes.BIGINT,
-    content: {
-      type: DataTypes.STRING,
-      allowNull: false
+    {
+      sequelize,
+      modelName: 'Review',
     }
-  }, {
-    sequelize,
-    modelName: 'Review',
-  });
+  );
   return Review;
 };

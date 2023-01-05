@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Supplier extends Model {
     /**
@@ -10,30 +8,31 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      models.Supplier.hasMany(models.Laundry,
-        {foreignKey: "laundryId"}),
-      models.Supplier.hasMany(models.Review,
-        {foreignKey: "reviewId"})
+      models.Supplier.hasMany(models.Laundry, { foreignKey: 'laundryId' }),
+        models.Supplier.hasMany(models.Review, { foreignKey: 'reviewId' });
     }
   }
-  Supplier.init({
-    supplierId: {
-      primaryKey: true,
-      type: DataTypes.BIGINT,
+  Supplier.init(
+    {
+      supplierId: {
+        primaryKey: true,
+        type: DataTypes.BIGINT,
+      },
+      email: DataTypes.STRING,
+      nickname: DataTypes.STRING,
+      password: DataTypes.STRING,
+      address: DataTypes.STRING,
+      cellPhone: DataTypes.STRING,
+      laundryId: DataTypes.BIGINT,
+      point: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+      },
     },
-    email: DataTypes.STRING,
-    nickname: DataTypes.STRING,
-    password: DataTypes.STRING,
-    address: DataTypes.STRING,
-    cellPhone: DataTypes.STRING,
-    laundryId: DataTypes.BIGINT,
-    point: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0
+    {
+      sequelize,
+      modelName: 'Supplier',
     }
-  }, {
-    sequelize,
-    modelName: 'Supplier',
-  });
+  );
   return Supplier;
 };
