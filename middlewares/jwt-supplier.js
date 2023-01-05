@@ -2,7 +2,7 @@
 // 1. jwt
 // 2. 모델
 const jwt = require("jsonwebtoken");
-const { Supplier } = require("../models/supplier.js");
+const { Supplier } = require("../models");
 
 module.exports = async (req, res, next) => {
     // jwt 가져오기
@@ -30,6 +30,6 @@ module.exports = async (req, res, next) => {
     }
     catch (error) {
     console.error(error);
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: "로그인 후 사용 가능합니다." });
     }
 };

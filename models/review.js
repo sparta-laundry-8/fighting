@@ -10,7 +10,18 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      models.Review.belongsTo(models.Supplier, {
+        foreignKey: 'managerId',
+        onDelete: 'NO ACTION'
+      });
+      models.Review.belongsTo(models.Customer, {
+        foreignKey: 'customerId',
+        onDelete: 'NO ACTION'
+      });
+      models.Review.belongsTo(models.Laundry, {
+        foreignKey: 'laundryId',
+        onDelete: 'NO ACTION'
+      });
     }
   }
   Review.init({
@@ -20,8 +31,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     customerId: DataTypes.BIGINT,
     supplierId: DataTypes.BIGINT,
-    content: DataTypes.STRING,
-    nickname: DataTypes.STRING
+    laundryId: DataTypes.BIGINT,
+    content: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'Review',

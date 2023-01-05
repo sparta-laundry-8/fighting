@@ -14,7 +14,7 @@ router.get("/signup", (req, res) =>{
 // Customer 회원가입
 router.post("/signup/customer", async (req, res) => {
     try{
-        const { nickname, email, password, confirmPassword, cellphone, address } = req.body;
+        const { nickname, email, password, confirmPassword, cellphone } = req.body;
   
     if (password !== confirmPassword) {
       res.status(400).send({
@@ -35,7 +35,7 @@ router.post("/signup/customer", async (req, res) => {
       return;
     }
   
-    await Customer.create({ email, nickname, password, cellphone, address});
+    await Customer.create({ email, nickname, password, cellphone});
   
     res.status(201).send({ message: "회원 가입에 성공하였습니다." });
     } catch(error) {

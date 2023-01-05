@@ -15,10 +15,11 @@ module.exports = {
       supplierId: {
         type: Sequelize.BIGINT.UNSIGNED
       },
-      content: {
-        type: Sequelize.STRING
+      laundryId: {
+        type: Sequelize.BIGINT.UNSIGNED
       },
-      nickname: {
+      content: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       createdAt: {

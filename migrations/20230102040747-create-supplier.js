@@ -31,7 +31,8 @@ module.exports = {
         type: Sequelize.BIGINT.UNSIGNED
       },
       point: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BIGINT.UNSIGNED,
+        defaultValue: 0
       },
       createdAt: {
         allowNull: false,
