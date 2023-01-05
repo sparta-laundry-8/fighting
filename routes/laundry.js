@@ -35,10 +35,7 @@ router.post('/laundry/apply', jwtCustomer, async (req, res) => {
         cellPhone,
         address,
       }),
-      await Customer.update(
-        { point: point - 10000 },
-        { where: { customerId } }
-      ),
+      await Customer.update({ point: point - 10000 }, { where: { customerId } }),
       res.status(200).json({ Message: '세탁물 신청이 접수되었습니다.' })
     );
   } catch (error) {
@@ -83,9 +80,7 @@ router.get('/laundry/list', jwtSupplier, async (req, res) => {
   try {
     const laundrys = await Laundry.findAll({ where: { status: 0 } });
     if (!laundrys) {
-      return res
-        .status(200)
-        .json({ Message: '현재 대기중인 세탁물이 없습니다.' });
+      return res.status(200).json({ Message: '현재 대기중인 세탁물이 없습니다.' });
     }
     return res.status(200).json({ laundrys });
   } catch (error) {
@@ -151,28 +146,23 @@ router.get('/laundry/collect/:supplierId', jwtSupplier, async (req, res) => {
 });
 
 //supplier : 세탁물 현황 변경
-router.patch(
-  '/laundry/collect/:supplierId/:laundryId',
-  jwtSupplier,
-  async (req, res) => {
-    try {
-      const supplier = res.locals.supplier;
-      const supplierId = supplier.supplierId;
+router.patch('/laundry/collect/:supplierId/:laundryId', jwtSupplier, async (req, res) => {
+  try {
+    const supplier = res.locals.supplier;
+    const supplierId = supplier.supplierId;
 
-      const { laundryId } = req.params;
-      const { status } = req.body;
+    const { laundryId } = req.params;
+    const { status } = req.body;
 
-      if (supplierId) {
-        return (
-          await Laundry.update({ status }, { where: { laundryId } }),
-          res.status(201).json({ Message: '변경 완료' })
-        );
-      }
-      return res.status(400).json({ Message: '잘못된 접근입니다.' });
-    } catch (error) {
-      console.error(error),
-        res.status(500).json({ errorMessage: error.Message });
+    if (supplierId) {
+      return (
+        await Laundry.update({ status }, { where: { laundryId } }),
+        res.status(201).json({ Message: '변경 완료' })
+      );
     }
+    return res.status(400).json({ Message: '잘못된 접근입니다.' });
+  } catch (error) {
+    console.error(error), res.status(500).json({ errorMessage: error.Message });
   }
-);
+});
 module.exports = router;

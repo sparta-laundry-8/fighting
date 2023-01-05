@@ -49,8 +49,7 @@ router.post('/signup/customer', async (req, res) => {
 // Supplier 회원가입
 router.post('/signup/supplier', async (req, res) => {
   try {
-    const { nickname, email, password, confirmPassword, cellphone, address } =
-      req.body;
+    const { nickname, email, password, confirmPassword, cellphone, address } = req.body;
 
     if (password !== confirmPassword) {
       res.status(400).send({

@@ -29,11 +29,9 @@ router.post('/login/customer', async (req, res) => {
         errorMessage: '이메일 또는 패스워드가 잘못됐습니다.',
       });
     }
-    const token = jwt.sign(
-      { customerId: customer.customerId },
-      'laundry-customer',
-      { expiresIn: '30m' }
-    );
+    const token = jwt.sign({ customerId: customer.customerId }, 'laundry-customer', {
+      expiresIn: '30m',
+    });
     if (token) {
       return res.status(200).json({
         token,
@@ -56,11 +54,9 @@ router.post('/login/supplier', async (req, res) => {
         errorMessage: '이메일 또는 패스워드가 잘못됐습니다.',
       });
     }
-    const token = jwt.sign(
-      { supplierId: supplier.supplierId },
-      'laundry-supplier',
-      { expiresIn: '30m' }
-    );
+    const token = jwt.sign({ supplierId: supplier.supplierId }, 'laundry-supplier', {
+      expiresIn: '30m',
+    });
 
     if (token) {
       return res.status(200).json({
