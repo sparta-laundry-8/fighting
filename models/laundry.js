@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     customerId: DataTypes.BIGINT,
     supplierId: DataTypes.BIGINT,
     status: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       defaultValue: 0
     },
     photoURL: DataTypes.STRING,

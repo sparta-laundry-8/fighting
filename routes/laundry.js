@@ -50,12 +50,12 @@ router.get('/laundry/apply/:customerId', jwtCustomer, async (req, res) => {
       };
 });
 
-// supplier : 고객이 신청한 세탁물 서비스 목록 (기업만 볼 수 있음)
+// supplier : 고객이 신청한 세탁물 서비스 목록
 router.get('/laundry/list', jwtSupplier,  async(req, res) => {
     try{
         const laundrys = await Laundry.findAll({
         });
-        if (!laundrys.length) {
+        if (!laundrys) {
             return res.status(200).json({Message: "현재 대기중인 세탁물이 없습니다."});
         };
         return res.status(200).json({laundrys})
@@ -91,9 +91,11 @@ router.patch('/laundry/list/:laundryId', jwtSupplier, async (req, res) =>{
         const supplierId = supplier.supplierId;
 
         const {laundryId} = req.params;
-        const laundryState = await Laundry.findOne({where : {laundryId}});
-        if (laundryState) {
-            return await Laundry.updateOne({laundryId}, {$set: {supplierId, status : 1}})
+        const laundryStatus = await Laundry.findOne({where : {laundryId}});
+        if (laundryStatus) {
+            return await Laundry.update({supplierId, status : 1}, {where : {laundryId}}),
+            // await Laundry.increment({status:1}, {where: {laundryId}}),
+            res.status(200).json({Message : "수거접수가 완료되었습니다."})
         }
 
     } catch(error) {

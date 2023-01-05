@@ -16,7 +16,7 @@ module.exports = {
         type: Sequelize.BIGINT.UNSIGNED
       },
       status: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         defaultValue: 0
       },
       photoURL: {
