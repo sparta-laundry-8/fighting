@@ -3,7 +3,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Reviews', {
-      id: {
+      reviewId: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -15,10 +15,10 @@ module.exports = {
       supplierId: {
         type: Sequelize.BIGINT.UNSIGNED
       },
-      content: {
-        type: Sequelize.STRING
+      laundryId: {
+        type: Sequelize.BIGINT.UNSIGNED
       },
-      nickname: {
+      content: {
         type: Sequelize.STRING
       },
       createdAt: {

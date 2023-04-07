@@ -10,16 +10,27 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      models.Laundry.belongsTo(models.Supplier, {
+        foreignKey: 'supplierId',
+        onDelete: 'NO ACTION'
+      });
+      models.Laundry.belongsTo(models.Customer, {
+        foreignKey: 'customerId',
+        onDelete: 'NO ACTION'
+      });
     }
   }
   Laundry.init({
+    laundryId: {
+      primaryKey: true,
+      type: DataTypes.BIGINT,
+    },
     customerId: DataTypes.BIGINT,
-    spplierId: DataTypes.BIGINT,
+    supplierId: DataTypes.BIGINT,
     status: DataTypes.TEXT,
     photoURL: DataTypes.BLOB,
     request: DataTypes.STRING,
-    cellphone: DataTypes.STRING,
+    cellPhone: DataTypes.STRING,
     address: DataTypes.STRING
   }, {
     sequelize,
